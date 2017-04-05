@@ -13,22 +13,21 @@ class GroupsController < ApplicationController
   def edit
   end
 
+    def new
+      @group = Group.new
+    end
 
-  def new
-    @group = Group.new
-  end
+    def create
+      @group = Group.new(group_params)
+      @group.user = current_user
 
-  def create
-    @group = Group.new(group_params)
-    @group.user = current_user
+    if @group.save
 
-  if @group.save
-
-    redirect_to groups_path
-  else
-    render :new
-   end
-  end
+      redirect_to groups_path
+    else
+      render :new
+     end
+    end
 
   def update
     if @group.update(group_params)
